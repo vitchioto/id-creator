@@ -1,15 +1,14 @@
 <template>
   <h2>Canvas</h2>
   <canvas id="canvasFront" width="540" height="350" />
-  <button class="button" @click="drawFront">Draw Front</button>
   <canvas id="canvasBack" width="540" height="350" />
-  <button class="button" @click="drawBack">Draw Back</button>
-  <button class="button" @click="handleClick">Download</button>
+  <button class="button" @click="downloadFront">Download Front</button>
+  <button class="button" @click="downloadBack">Download Back</button>
   {{ state.surname }}
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import idFront from '../assets/id_front.jpg';
 import idBack from '../assets/id_back.jpg';
 import { state } from '../store.ts';
@@ -21,9 +20,26 @@ let canvasBack = ref();
 let contextBack = ref<CanvasRenderingContext2D>();
 let imageBack = ref();
 
-const handleClick = () => {
+watch(state, () => {
+  drawFront();
+  drawBack();
+})
+
+const downloadFront = () => {
   const createEl = document.createElement('a');
   createEl.href = canvasFront.value?.toDataURL();
+
+  // This is the name of our downloaded file
+  createEl.download = "download-this-canvas";
+
+  // Click the download button, causing a download, and then remove it
+  createEl.click();
+  createEl.remove();
+};
+
+const downloadBack = () => {
+  const createEl = document.createElement('a');
+  createEl.href = canvasBack.value?.toDataURL();
 
   // This is the name of our downloaded file
   createEl.download = "download-this-canvas";
