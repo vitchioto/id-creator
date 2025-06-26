@@ -1,21 +1,29 @@
 <template>
   <h2>Canvas</h2>
-  <canvas id="canvas" width="540" height="350" />
-  <button class="button" @click="handleClick">Download 2</button>
+  <canvas id="canvasFront" width="540" height="350" />
+  <button class="button" @click="drawFront">Draw Front</button>
+  <canvas id="canvasBack" width="540" height="350" />
+  <button class="button" @click="drawBack">Draw Back</button>
+  <button class="button" @click="handleClick">Download</button>
   {{ state.surname }}
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import idFront from '../assets/id_front.jpg';
+import idBack from '../assets/id_back.jpg';
 import { state } from '../store.ts';
 
-let canvas = ref();
-let context = ref<CanvasRenderingContext2D>();
+let canvasFront = ref();
+let contextFront = ref<CanvasRenderingContext2D>();
+let imageFront = ref();
+let canvasBack = ref();
+let contextBack = ref<CanvasRenderingContext2D>();
+let imageBack = ref();
 
 const handleClick = () => {
   const createEl = document.createElement('a');
-  createEl.href = canvas.value?.toDataURL();
+  createEl.href = canvasFront.value?.toDataURL();
 
   // This is the name of our downloaded file
   createEl.download = "download-this-canvas";
@@ -25,47 +33,58 @@ const handleClick = () => {
   createEl.remove();
 };
 
-const draw = () => {
-  context?.drawImage(img, 0,0, img.width, img.height, 0,0,img.width/2, img.height/2);
+const drawFront = () => {
+  if (!contextFront.value) return;
 
-  context.font = "400 16px sans-serif";
-  context.fillText("Priezvisko", 226, 95);
+  contextFront.value.clearRect(0, 0, 540, 350);
+  contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 540, 350);
 
-  context.fillText("Meno", 226, 125);
+  contextFront.value.font = "400 16px sans-serif";
+  contextFront.value.fillText(state.surname, 226, 95);
 
-  context.fillText("Datum narodenia", 226, 155);
+  contextFront.value.fillText(state.name, 226, 125);
 
-  context.fillText("Obcianstvo", 226, 185);
+  contextFront.value.fillText(state.birthDate, 226, 155);
 
-  context.fillText("Cislo preukazu", 226, 215);
+  contextFront.value.fillText(state.nationality, 226, 185);
 
-  context.fillText("Vydal", 226, 255);
+  contextFront.value.fillText(state.idNumber, 226, 215);
+
+  contextFront.value.fillText(state.issuer, 226, 255);
+
+  contextFront.value.fillText(state.sex, 385, 155);
+
+  contextFront.value.fillText(state.birthNumber, 385, 185);
+
+  contextFront.value.fillText(state.issueDate, 385, 215);
+
+  contextFront.value.fillText(state.expirationDate, 385, 255);
+}
+
+const drawBack = () => {
+  if (!contextBack.value) return;
+
+  contextBack.value.clearRect(0, 0, 540, 350);
+  contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 540, 350);
+
+  contextBack.value.font = "400 14px sans-serif";
+  contextBack.value.fillText(state.address, 245, 41);
+
+  contextBack.value.fillText(state.birthSurname, 245, 86);
+
+  contextBack.value.fillText(state.birthPlace, 245, 113);
 }
 
 onMounted(() => {
-  canvas.value = document.getElementById('canvas') as HTMLCanvasElement;
-  context.value = canvas.value.getContext('2d') as CanvasRenderingContext2D;
+  canvasFront.value = document.getElementById('canvasFront') as HTMLCanvasElement;
+  contextFront.value = canvasFront.value.getContext('2d') as CanvasRenderingContext2D;
+  imageFront.value = new Image();
+  imageFront.value.src = idFront;
 
-  const img = new Image();
-
-  img.addEventListener('load', () => {
-    ctx?.drawImage(img, 0,0, img.width, img.height, 0,0,img.width/2, img.height/2);
-
-    ctx.font = "400 16px sans-serif";
-    ctx.fillText("Priezvisko", 226, 95);
-
-    ctx.fillText("Meno", 226, 125);
-
-    ctx.fillText("Datum narodenia", 226, 155);
-
-    ctx.fillText("Obcianstvo", 226, 185);
-
-    ctx.fillText("Cislo preukazu", 226, 215);
-
-    ctx.fillText("Vydal", 226, 255);
-  });
-
-  img.src = idFront;
+  canvasBack.value = document.getElementById('canvasBack') as HTMLCanvasElement;
+  contextBack.value = canvasBack.value.getContext('2d') as CanvasRenderingContext2D;
+  imageBack.value = new Image();
+  imageBack.value.src = idBack;
 });
 </script>
 

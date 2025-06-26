@@ -1,5 +1,17 @@
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
-export const state = {
-    surname: ref<string>(''),
-};
+export const state = reactive({
+  surname: '',
+  name: '',
+  issuer: '',
+  birthDate: '',
+  nationality: '',
+  idNumber: '',
+  sex: '',
+  birthNumber: '',
+  issueDate: '',
+  expirationDate: '',
+  address: '',
+  birthSurname: '',
+  birthPlace: ''
+})

@@ -1,10 +1,58 @@
 <template>
   <h2>Form</h2>
   <form>
-    <label class="label">
+    <label class="label" for="surname">
       Priezvisko
-      <input class="input" v-model="state.surname">
     </label>
+    <input id="surname" class="input" v-model="state.surname">
+    <label class="label" for="name">
+      Meno
+    </label>
+    <input id="name" class="input" v-model="state.name">
+    <label class="label" for="birthDate">
+      Datum narodenia
+    </label>
+    <input id="birthDate" class="input" v-model="state.birthDate">
+    <label class="label" for="nationality">
+      Obcianstvo
+    </label>
+    <input id="nationality" class="input" v-model="state.nationality">
+    <label class="label" for="idNumber">
+      Cislo preukazu
+    </label>
+    <input id="idNumber" class="input" v-model="state.idNumber">
+    <label class="label" for="issuer">
+      Vydal
+    </label>
+    <input id="issuer" class="input" v-model="state.issuer">
+    <label class="label" for="sex">
+      Pohlavie
+    </label>
+    <input id="sex" class="input" v-model="state.sex">
+    <label class="label" for="birthNumber">
+      Rodne cislo
+    </label>
+    <input id="birthNumber" class="input" v-model="state.birthNumber">
+    <label class="label" for="issueDate">
+      Datum vydania
+    </label>
+    <input id="issueDate" class="input" v-model="state.issueDate">
+    <label class="label" for="expirationDate">
+      Datum expiracie
+    </label>
+    <input id="expirationDate" class="input" v-model="state.expirationDate">
+    <label class="label" for="address">
+      Adresa
+    </label>
+    <input id="address" class="input" v-model="state.address">
+    <label class="label" for="birthSurname">
+      Rodne priezvisko
+    </label>
+    <input id="birthSurname" class="input" v-model="state.birthSurname">
+    <label class="label" for="birthPlace">
+      Rodne mesto
+    </label>
+    <input id="birthPlace" class="input" v-model="state.birthPlace">
   </form>
 </template>
 
@@ -14,4 +62,11 @@ import { state } from '../store.ts';
 </script>
 
 <style scoped>
+form {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: max-content 1fr;
+  text-align: left;
+}
+
 </style>
