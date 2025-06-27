@@ -11,7 +11,8 @@ export const state = reactive({
   birthNumber: '',
   issueDate: '',
   expirationDate: '',
-  address: '',
+  addressLine1: '',
+  addressLine2: '',
   birthSurname: '',
   birthPlace: ''
 })

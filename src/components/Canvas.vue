@@ -1,10 +1,12 @@
 <template>
-  <h2>Canvas</h2>
+  <div>
   <canvas id="canvasFront" width="540" height="350" />
   <canvas id="canvasBack" width="540" height="350" />
-  <button class="button" @click="downloadFront">Download Front</button>
-  <button class="button" @click="downloadBack">Download Back</button>
-  {{ state.surname }}
+  </div>
+  <div>
+    <button class="button mr-2" @click="downloadFront">Stiahnuť prednú stranu</button>
+    <button class="button" @click="downloadBack">Stiahnuť zadnú stranu</button>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -102,7 +104,8 @@ const drawBack = () => {
   contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 540, 350);
 
   contextBack.value.font = "400 14px sans-serif";
-  contextBack.value.fillText(state.address, 245, 41);
+  contextBack.value.fillText(state.addressLine1, 245, 41);
+  contextBack.value.fillText(state.addressLine2, 245, 61);
 
   contextBack.value.fillText(state.birthSurname, 245, 86);
 

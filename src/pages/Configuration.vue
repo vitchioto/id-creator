@@ -1,5 +1,5 @@
 <template>
-  <h1>Configuration</h1>
+  <h1>Konfigurácia</h1>
   <Form />
   <Canvas />
   <ImageCrop />
