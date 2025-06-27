@@ -54,11 +54,11 @@
     <label class="label" for="addressLine1">
       Adresa riadok 1
     </label>
-    <input id="addressLine1" class="input" placeholder="Tomášikova 48" v-model="state.addressLine1">
+    <input id="addressLine1" class="input" placeholder="Bratislava-Ružinov" v-model="state.addressLine1">
     <label class="label" for="addressLine2">
       Adresa riadok 2
     </label>
-    <input id="addressLine2" class="input" placeholder="832 37 Bratislava" v-model="state.addressLine2">
+    <input id="addressLine2" class="input" placeholder="Tomášikova 48" v-model="state.addressLine2">
     <label class="label" for="birthPlace">
       Rodné mesto
     </label>

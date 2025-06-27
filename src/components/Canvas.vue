@@ -36,12 +36,12 @@ const mrzLine1 = computed(() => {
 const mrzLine2 = computed(() => {
   const birthStringParts = state.birthNumber.split('/');
   
-  return `${birthStringParts}X${state.sex}`;
+  return `${birthStringParts[0]}X${state.sex}`;
 });
 
 const mrzLine3 = computed(() => {
   const nameGTs = '<'.repeat(28 - (state.surname.length + state.name.length));
-  
+
   return `${state.surname.toUpperCase()}<<${state.name.toUpperCase()}${nameGTs}`;
 });
 
@@ -103,16 +103,17 @@ const drawBack = () => {
   contextBack.value.clearRect(0, 0, 540, 350);
   contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 540, 350);
 
-  contextBack.value.font = "400 14px sans-serif";
-  contextBack.value.fillText(state.addressLine1, 245, 41);
-  contextBack.value.fillText(state.addressLine2, 245, 61);
+  contextBack.value.font = "400 12px Roboto Mono";
+  contextBack.value.letterSpacing = "0px";
+  contextBack.value.fillText(state.addressLine1, 245, 43);
+  contextBack.value.fillText(state.addressLine2, 245, 58);
 
-  contextBack.value.fillText(state.birthSurname, 245, 86);
+  contextBack.value.fillText(state.birthSurname, 245, 88);
 
-  contextBack.value.fillText(state.birthPlace, 245, 113);
+  contextBack.value.fillText(state.birthPlace, 245, 115);
 
-  contextBack.value.font = "400 20px sans-serif";
-  contextBack.value.letterSpacing = "3px";
+  contextBack.value.font = "400 20px Roboto Mono";
+  contextBack.value.letterSpacing = "4px";
   contextBack.value.fillText(mrzLine1.value, 30, 250);
 
   contextBack.value.fillText(mrzLine2.value, 30, 280);
