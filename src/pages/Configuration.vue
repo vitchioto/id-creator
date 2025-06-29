@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { state } from '../store.ts';
 
 import Form from '../components/Form.vue';
 import Canvas from '../components/Canvas.vue';
@@ -31,8 +30,10 @@ const showModal = ref(false);
 const handleImage = (event: Event) => {
   console.log(event);
   showModal.value = true;
-  image.value = URL.createObjectURL(event.target?.files[0]);
-  state.image2 = image.value;
+  const target = event.target as HTMLInputElement;
+  if (target?.files) {
+    image.value = URL.createObjectURL(target?.files[0]);
+  }
 }
 </script>
 

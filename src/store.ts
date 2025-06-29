@@ -1,6 +1,24 @@
 import { reactive } from 'vue';
 
-export const state = reactive({
+type State = {
+  canvas?: HTMLCanvasElement,
+  surname: string;
+  name: string;
+  issuer: string;
+  birthDate: string;
+  nationality: string;
+  idNumber: string;
+  sex: string;
+  birthNumber: string;
+  issueDate: string;
+  expirationDate: string;
+  addressLine1: string;
+  addressLine2: string;
+  birthSurname: string;
+  birthPlace: string;
+};
+
+export const state: State = reactive({
   canvas: undefined,
   surname: '',
   name: '',
@@ -16,6 +34,4 @@ export const state = reactive({
   addressLine2: '',
   birthSurname: '',
   birthPlace: '',
-  coordinates: undefined,
-  image2: undefined,
 })

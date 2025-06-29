@@ -22,10 +22,8 @@ import { state } from '../store.ts';
 const props = defineProps(['show', 'image']);
 defineEmits(['close'])
 
-const change = ({ coordinates, canvas }) => {
+const change = ({ canvas } : { canvas: HTMLCanvasElement }) => {
   state.canvas = canvas;
-  state.coordinates = coordinates;
-	console.log(coordinates, canvas, state.canvas);
 }
 </script>
 

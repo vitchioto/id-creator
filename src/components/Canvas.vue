@@ -154,25 +154,6 @@ const calculateControlNumber = (value: string) : number => {
   return sum % 10;
 }
 
-const calculateControlNumber2 = (value: string) : number => {
-  const pattern = [3, 1, 7];
-
-  const sum = value.split('').reduce((acc, item, index) => {
-    if (item === '<') return acc;
-
-    const numericaValue = parseInt(item);
-    if (!isNaN(numericaValue)) {
-      acc += numericaValue * pattern[index % 3];
-    } else {
-      acc += (item.charCodeAt(0) - 55) * pattern[index % 3];
-    }
-
-    return acc;
-  }, 0)
-
-  return sum % 10;
-}
-
 onMounted(() => {
   canvasFront.value = document.getElementById('canvasFront') as HTMLCanvasElement;
   contextFront.value = canvasFront.value.getContext('2d') as CanvasRenderingContext2D;
