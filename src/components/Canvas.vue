@@ -30,13 +30,15 @@ watch(state, () => {
 const mrzLine1 = computed(() => {
   const birthString = state.birthNumber.replace('/', '');
 
-  return `IDSVK${state.idNumber}<3${birthString}<<<<<`;
+  return `IDSVK${state.idNumber}<${calculateControlNumber(state.idNumber)}${birthString}<<<<<`;
 });
 
 const mrzLine2 = computed(() => {
   const birthStringParts = state.birthNumber.split('/');
+  const expirationDateParts = state.expirationDate.split('.');
+  const expirationDateFormatted = `${expirationDateParts[2].substring(2)}${expirationDateParts[1]}${expirationDateParts[0]}`;
   
-  return `${birthStringParts[0]}X${state.sex}`;
+  return `${birthStringParts[0]}${calculateControlNumber(birthStringParts[0])}${state.sex}${expirationDateFormatted}${calculateControlNumber(expirationDateFormatted)}${state.nationality}<<<<<<<<<<<`;
 });
 
 const mrzLine3 = computed(() => {
@@ -74,6 +76,12 @@ const drawFront = () => {
 
   contextFront.value.clearRect(0, 0, 540, 350);
   contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 540, 350);
+  
+  if (state.canvas) {
+    contextFront.value.filter = 'grayscale(1)';
+    contextFront.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 23, 89, 188, 236); // 165 / 147
+    contextFront.value.filter = 'none';
+  }
 
   contextFront.value.font = "400 16px sans-serif";
   contextFront.value.fillText(state.surname, 227, 95);
@@ -103,6 +111,12 @@ const drawBack = () => {
   contextBack.value.clearRect(0, 0, 540, 350);
   contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 540, 350);
 
+  if (state.canvas) {
+    contextBack.value.filter = 'grayscale(1)';
+    contextBack.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 70, 30, 40, 60); // 165 / 147
+    contextBack.value.filter = 'none';
+  }
+
   contextBack.value.font = "400 12px Roboto Mono";
   contextBack.value.letterSpacing = "0px";
   contextBack.value.fillText(state.addressLine1, 245, 43);
@@ -121,6 +135,44 @@ const drawBack = () => {
   contextBack.value.fillText(mrzLine3.value, 30, 310);
 }
 
+const calculateControlNumber = (value: string) : number => {
+  const pattern = [7, 3, 1];
+
+  const sum = value.split('').reduce((acc, item, index) => {
+    if (item === '<') return acc;
+
+    const numericaValue = parseInt(item);
+    if (!isNaN(numericaValue)) {
+      acc += numericaValue * pattern[index % 3];
+    } else {
+      acc += (item.charCodeAt(0) - 55) * pattern[index % 3];
+    }
+
+    return acc;
+  }, 0)
+
+  return sum % 10;
+}
+
+const calculateControlNumber2 = (value: string) : number => {
+  const pattern = [3, 1, 7];
+
+  const sum = value.split('').reduce((acc, item, index) => {
+    if (item === '<') return acc;
+
+    const numericaValue = parseInt(item);
+    if (!isNaN(numericaValue)) {
+      acc += numericaValue * pattern[index % 3];
+    } else {
+      acc += (item.charCodeAt(0) - 55) * pattern[index % 3];
+    }
+
+    return acc;
+  }, 0)
+
+  return sum % 10;
+}
+
 onMounted(() => {
   canvasFront.value = document.getElementById('canvasFront') as HTMLCanvasElement;
   contextFront.value = canvasFront.value.getContext('2d') as CanvasRenderingContext2D;
@@ -131,6 +183,8 @@ onMounted(() => {
   contextBack.value = canvasBack.value.getContext('2d') as CanvasRenderingContext2D;
   imageBack.value = new Image();
   imageBack.value.src = idBack;
+
+  console.log(calculateControlNumber('VV789202<89205028887<<<<<92050263111242'));
 });
 </script>
 

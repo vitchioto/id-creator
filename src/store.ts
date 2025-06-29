@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 
 export const state = reactive({
+  canvas: undefined,
   surname: '',
   name: '',
   issuer: '',
@@ -14,5 +15,7 @@ export const state = reactive({
   addressLine1: '',
   addressLine2: '',
   birthSurname: '',
-  birthPlace: ''
+  birthPlace: '',
+  coordinates: undefined,
+  image2: undefined,
 })
