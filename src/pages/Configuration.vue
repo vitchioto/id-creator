@@ -44,8 +44,4 @@ const clearImage = () => {
 .file {
   justify-content: center;
 }
-
-h1 {
-  font-family: OCR B;
-}
 </style>
