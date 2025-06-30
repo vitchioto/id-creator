@@ -36,6 +36,8 @@ const mrzLine1 = computed(() => {
 const mrzLine2 = computed(() => {
   const birthStringParts = state.birthNumber.split('/');
   const expirationDateParts = state.expirationDate.split('.');
+
+  if (!expirationDateParts[2]) return '';
   const expirationDateFormatted = `${expirationDateParts[2].substring(2)}${expirationDateParts[1]}${expirationDateParts[0]}`;
   
   return `${birthStringParts[0]}${calculateControlNumber(birthStringParts[0])}${state.sex}${expirationDateFormatted}${calculateControlNumber(expirationDateFormatted)}${state.nationality}<<<<<<<<<<<`;
