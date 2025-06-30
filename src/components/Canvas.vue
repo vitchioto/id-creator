@@ -144,6 +144,13 @@ const drawBack = () => {
 
   contextBack.value.font = "400 12px Roboto Mono";
   contextBack.value.letterSpacing = "0px";
+
+  const birthDateParts = state.birthDate.split('.');
+  if (birthDateParts[2]) {
+    const birthDateFormatted = `${birthDateParts[0]}${birthDateParts[1]}${birthDateParts[2].substring(2)}`;
+    contextBack.value.fillText(birthDateFormatted, 73, 92);
+  }
+
   contextBack.value.fillText(state.addressLine1, 245, 43);
   contextBack.value.fillText(state.addressLine2, 245, 58);
 
