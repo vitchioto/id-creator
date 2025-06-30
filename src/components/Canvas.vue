@@ -27,6 +27,18 @@ watch(state, () => {
   drawBack();
 });
 
+const mrzLastCheckDigit = computed(() => {
+  const birthStringParts = state.birthNumber.split('/');
+  const expirationDateParts = state.expirationDate.split('.');
+
+  if (!expirationDateParts[2]) return '';
+  const expirationDateFormatted = `${expirationDateParts[2].substring(2)}${expirationDateParts[1]}${expirationDateParts[0]}`;
+
+  const checkString = `${mrzLine1.value.substring(5)}${birthStringParts[0]}${calculateControlNumber(birthStringParts[0])}${expirationDateFormatted}${calculateControlNumber(expirationDateFormatted)}`;
+
+  return calculateControlNumber(checkString);
+});
+
 const mrzLine1 = computed(() => {
   const birthString = state.birthNumber.replace('/', '');
 
@@ -40,7 +52,7 @@ const mrzLine2 = computed(() => {
   if (!expirationDateParts[2]) return '';
   const expirationDateFormatted = `${expirationDateParts[2].substring(2)}${expirationDateParts[1]}${expirationDateParts[0]}`;
   
-  return `${birthStringParts[0]}${calculateControlNumber(birthStringParts[0])}${state.sex}${expirationDateFormatted}${calculateControlNumber(expirationDateFormatted)}${state.nationality}<<<<<<<<<<<`;
+  return `${birthStringParts[0]}${calculateControlNumber(birthStringParts[0])}${state.sex}${expirationDateFormatted}${calculateControlNumber(expirationDateFormatted)}${state.nationality}<<<<<<<<<<<${mrzLastCheckDigit.value}`;
 });
 
 const mrzLine3 = computed(() => {
