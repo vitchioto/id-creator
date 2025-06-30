@@ -84,11 +84,16 @@ form {
   align-items: center;
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(2, max-content 1fr);
   text-align: left;
 }
 
 .label {
   margin-bottom: 0 !important;
+}
+
+@media screen and (min-width: 768px) {
+  form {
+    grid-template-columns: repeat(2, max-content 1fr);
+  }
 }
 </style>
