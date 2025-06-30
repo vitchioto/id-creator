@@ -181,8 +181,6 @@ onMounted(() => {
   contextBack.value = canvasBack.value.getContext('2d') as CanvasRenderingContext2D;
   imageBack.value = new Image();
   imageBack.value.src = idBack;
-
-  console.log(calculateControlNumber('VV789202<89205028887<<<<<92050263111242'));
 });
 </script>
 

@@ -28,7 +28,6 @@ const showModal = ref(false);
 
 
 const handleImage = (event: Event) => {
-  console.log(event);
   showModal.value = true;
   const target = event.target as HTMLInputElement;
   if (target?.files) {
