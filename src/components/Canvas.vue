@@ -1,7 +1,7 @@
 <template>
   <div>
-  <canvas id="canvasFront" width="540" height="350" />
-  <canvas id="canvasBack" width="540" height="350" />
+  <canvas id="canvasFront" width="1080" height="700" />
+  <canvas id="canvasBack" width="1080" height="700" />
   </div>
   <div>
     <button class="button mr-2" @click="downloadFront">Stiahnuť prednú stranu</button>
@@ -97,42 +97,42 @@ const downloadBack = () => {
 const drawFront = () => {
   if (!contextFront.value) return;
 
-  contextFront.value.clearRect(0, 0, 540, 350);
-  contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 540, 350);
+  contextFront.value.clearRect(0, 0, 1080, 700);
+  contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 1080, 700);
   
   if (state.canvas) {
     contextFront.value.filter = 'grayscale(1)';
-    contextFront.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 23, 89, 188, 236); // 165 / 147
+    contextFront.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 46, 178, 378, 472); // 165 / 147
     contextFront.value.filter = 'none';
   }
 
-  contextFront.value.font = "400 16px sans-serif";
-  contextFront.value.fillText(state.surname, 227, 95);
+  contextFront.value.font = "400 32px sans-serif";
+  contextFront.value.fillText(state.surname, 454, 190);
 
-  contextFront.value.fillText(state.name, 227, 125);
+  contextFront.value.fillText(state.name, 454, 250);
 
-  contextFront.value.fillText(state.birthDate, 227, 155);
+  contextFront.value.fillText(state.birthDate, 454, 310);
 
-  contextFront.value.fillText(state.nationality, 227, 185);
+  contextFront.value.fillText(state.nationality, 454, 370);
 
-  contextFront.value.fillText(state.idNumber, 227, 215);
+  contextFront.value.fillText(state.idNumber, 454, 430);
 
-  contextFront.value.fillText(state.issuer, 227, 255);
+  contextFront.value.fillText(state.issuer, 454, 510);
 
-  contextFront.value.fillText(state.sex, 383, 155);
+  contextFront.value.fillText(state.sex, 766, 310);
 
-  contextFront.value.fillText(state.birthNumber, 383, 185);
+  contextFront.value.fillText(state.birthNumber, 766, 370);
 
-  contextFront.value.fillText(state.issueDate, 383, 215);
+  contextFront.value.fillText(state.issueDate, 766, 430);
 
-  contextFront.value.fillText(state.expirationDate, 383, 255);
+  contextFront.value.fillText(state.expirationDate, 766, 510);
 }
 
 const drawBack = () => {
   if (!contextBack.value) return;
 
-  contextBack.value.clearRect(0, 0, 540, 350);
-  contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 540, 350);
+  contextBack.value.clearRect(0, 0, 1080, 700);
+  contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 1080, 700);
 
   // if (state.canvas) {
   //   contextBack.value.filter = 'grayscale(1)';
@@ -140,31 +140,31 @@ const drawBack = () => {
   //   contextBack.value.filter = 'none';
   // }
 
-  contextBack.value.font = "400 12px Chivo Mono";
+  contextBack.value.font = "400 24px Chivo Mono";
   contextBack.value.letterSpacing = "0px";
 
   const birthDateParts = state.birthDate.split('.');
   if (birthDateParts[2]) {
     const birthDateFormatted = `${birthDateParts[0]}${birthDateParts[1]}${birthDateParts[2].substring(2)}`;
-    contextBack.value.fillText(birthDateFormatted, 73, 92);
+    contextBack.value.fillText(birthDateFormatted, 146, 184);
   }
 
-  contextBack.value.font = "400 12px sans-serif";
+  contextBack.value.font = "400 24px sans-serif";
 
-  contextBack.value.fillText(state.addressLine1, 245, 43);
-  contextBack.value.fillText(state.addressLine2, 245, 58);
+  contextBack.value.fillText(state.addressLine1, 490, 86);
+  contextBack.value.fillText(state.addressLine2, 490, 116);
 
-  contextBack.value.fillText(state.birthSurname, 245, 88);
+  contextBack.value.fillText(state.birthSurname, 490, 176);
 
-  contextBack.value.fillText(state.birthPlace, 245, 115);
+  contextBack.value.fillText(state.birthPlace, 490, 230);
 
-  contextBack.value.font = "400 20px Chivo Mono";
+  contextBack.value.font = "400 40px Chivo Mono";
   contextBack.value.letterSpacing = "4px";
-  contextBack.value.fillText(mrzLine1.value, 30, 250);
+  contextBack.value.fillText(mrzLine1.value, 60, 500);
 
-  contextBack.value.fillText(mrzLine2.value, 30, 280);
+  contextBack.value.fillText(mrzLine2.value, 60, 560);
 
-  contextBack.value.fillText(mrzLine3.value, 30, 310);
+  contextBack.value.fillText(mrzLine3.value, 60, 620);
 }
 
 const calculateControlNumber = (value: string) : number => {
