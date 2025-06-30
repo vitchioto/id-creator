@@ -140,7 +140,7 @@ const drawBack = () => {
   //   contextBack.value.filter = 'none';
   // }
 
-  contextBack.value.font = "400 12px Roboto Mono";
+  contextBack.value.font = "400 12px Chivo Mono";
   contextBack.value.letterSpacing = "0px";
 
   const birthDateParts = state.birthDate.split('.');
@@ -149,6 +149,8 @@ const drawBack = () => {
     contextBack.value.fillText(birthDateFormatted, 73, 92);
   }
 
+  contextBack.value.font = "400 12px sans-serif";
+
   contextBack.value.fillText(state.addressLine1, 245, 43);
   contextBack.value.fillText(state.addressLine2, 245, 58);
 
@@ -156,7 +158,7 @@ const drawBack = () => {
 
   contextBack.value.fillText(state.birthPlace, 245, 115);
 
-  contextBack.value.font = "400 20px Roboto Mono";
+  contextBack.value.font = "400 20px Chivo Mono";
   contextBack.value.letterSpacing = "4px";
   contextBack.value.fillText(mrzLine1.value, 30, 250);
 
