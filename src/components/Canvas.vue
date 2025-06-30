@@ -69,7 +69,7 @@ const downloadFront = () => {
   createEl.href = canvasFront.value?.toDataURL();
 
   // This is the name of our downloaded file
-  createEl.download = "download-this-canvas";
+  createEl.download = "id_front";
 
   // Click the download button, causing a download, and then remove it
   createEl.click();
@@ -81,7 +81,7 @@ const downloadBack = () => {
   createEl.href = canvasBack.value?.toDataURL();
 
   // This is the name of our downloaded file
-  createEl.download = "download-this-canvas";
+  createEl.download = "id_back";
 
   // Click the download button, causing a download, and then remove it
   createEl.click();
@@ -128,11 +128,11 @@ const drawBack = () => {
   contextBack.value.clearRect(0, 0, 540, 350);
   contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 540, 350);
 
-  if (state.canvas) {
-    contextBack.value.filter = 'grayscale(1)';
-    contextBack.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 70, 30, 40, 60); // 165 / 147
-    contextBack.value.filter = 'none';
-  }
+  // if (state.canvas) {
+  //   contextBack.value.filter = 'grayscale(1)';
+  //   contextBack.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 70, 30, 40, 60); // 165 / 147
+  //   contextBack.value.filter = 'none';
+  // }
 
   contextBack.value.font = "400 12px Roboto Mono";
   contextBack.value.letterSpacing = "0px";
