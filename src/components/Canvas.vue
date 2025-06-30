@@ -159,7 +159,7 @@ const drawBack = () => {
   contextBack.value.fillText(state.birthPlace, 490, 230);
 
   contextBack.value.font = "400 40px Chivo Mono";
-  contextBack.value.letterSpacing = "4px";
+  contextBack.value.letterSpacing = "8px";
   contextBack.value.fillText(mrzLine1.value, 60, 500);
 
   contextBack.value.fillText(mrzLine2.value, 60, 560);
