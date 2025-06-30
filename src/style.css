@@ -1,5 +1,18 @@
 @import 'bulma/css/bulma.css';
 
+/* @font-face {
+  font-family: "OCR B";
+  src:
+    url("/font/OCR-B.otf") format("opentype"),
+    url("/font/OCR-B.ttf") format("TrueType");
+} */
+
+@font-face {
+  font-family: "OCR B";
+  src:
+    url("/font/ocr-b-new.ttf") format("TrueType");
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
