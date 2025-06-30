@@ -44,7 +44,10 @@ const mrzLine2 = computed(() => {
 const mrzLine3 = computed(() => {
   const nameGTs = '<'.repeat(28 - (state.surname.length + state.name.length));
 
-  return `${state.surname.toUpperCase()}<<${state.name.toUpperCase()}${nameGTs}`;
+  const normalizedSurname = state.surname.toUpperCase().normalize('NFKD').replace(/[^\w]/g, '');
+  const normalizedName = state.name.toUpperCase().normalize('NFKD').replace(/[^\w]/g, '');
+
+  return `${normalizedSurname}<<${normalizedName}${nameGTs}`;
 });
 
 const downloadFront = () => {
