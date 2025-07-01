@@ -11,8 +11,13 @@
         Žena
       </label>
     </div>
-    <div class="span-2">
-      Buttons
+    <div class="generation-section">
+      <label class="label" for="age">
+      Vek
+    </label>
+    <input id="age" class="input" placeholder="" v-model="age">
+    <button class="button" :disabled="!state.sex" @click.prevent="generateBirthDetails()">Generovať rodné detaily</button>
+    <button class="button" @click.prevent="generateID()">Generovať ID</button>
     </div>
     <label class="label" for="name">
       Meno
@@ -74,9 +79,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue';
+import { onMounted, watch, ref } from 'vue';
 import { state } from '../store.ts';
-import { DEFAULT_MALE_NAME, DEFAULT_MALE_SURNAME, DEFAULT_FEMALE_NAME, DEFAULT_FEMALE_SURNAME, formatDate } from '../utility.ts';
+import { DEFAULT_MALE_NAME, DEFAULT_MALE_SURNAME, DEFAULT_FEMALE_NAME, DEFAULT_FEMALE_SURNAME, formatDate, generateBirthNumber, generateIDNumber, generateRandomDate } from '../utility.ts';
+
+const age = ref();
 
 watch(
   () => state.surname,
@@ -102,6 +109,42 @@ watch(
     }
 });
 
+const generateBirthDetails = () => {
+  let startDate, endDate;
+
+  if (age.value) {
+    const start = new Date();
+    const startDay = start.getDate();
+    const startMonth = start.getMonth() + 1;
+    const startYear = start.getFullYear();
+
+    const end = new Date();
+    end.setDate(end.getDate() - 1);
+    const endDay = end.getDate();
+    const endMonth = end.getMonth() + 1;
+    const endYear = end.getFullYear();
+
+    const startYearCalculated = startYear - age.value - 1;
+    const endYearCalculated = endYear - age.value;
+
+    startDate = new Date(`${startYearCalculated}-${startMonth}-${startDay}`);
+    endDate = new Date(`${endYearCalculated}-${endMonth}-${endDay}`);
+  } else {
+    startDate = new Date('1970-12-31');
+    endDate = new Date('1999-12-31');
+  }
+
+  const birthDate = generateRandomDate(startDate, endDate);
+
+  state.birthDate = formatDate(birthDate);
+
+  state.birthNumber = generateBirthNumber(birthDate, state.sex);
+}
+
+const generateID = () => {
+  state.idNumber = generateIDNumber();
+}
+
 onMounted(() => {
   const date = new Date();
   state.issueDate = formatDate(date);
@@ -123,7 +166,10 @@ form {
   margin-bottom: 0 !important;
 }
 
-.span-2 {
+.generation-section {
+  align-items: center;
+  display: flex;
+  gap: 10px;
   grid-column: span 2;
 }
 
