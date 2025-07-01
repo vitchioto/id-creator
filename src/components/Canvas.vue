@@ -18,9 +18,11 @@ import { state } from '../store.ts';
 let canvasFront = ref();
 let contextFront = ref<CanvasRenderingContext2D>();
 let imageFront = ref();
+let imageFrontLoaded = ref(false);
 let canvasBack = ref();
 let contextBack = ref<CanvasRenderingContext2D>();
 let imageBack = ref();
+let imageBackLoaded = ref(false);
 
 watch(state, () => {
   drawFront();
@@ -95,7 +97,7 @@ const downloadBack = () => {
 };
 
 const drawFront = () => {
-  if (!contextFront.value) return;
+  if (!contextFront.value || !imageFrontLoaded.value) return;
 
   contextFront.value.clearRect(0, 0, 1080, 700);
   contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 1080, 700);
@@ -129,7 +131,7 @@ const drawFront = () => {
 }
 
 const drawBack = () => {
-  if (!contextBack.value) return;
+  if (!contextBack.value || !imageBackLoaded.value) return;
 
   contextBack.value.clearRect(0, 0, 1080, 700);
   contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 1080, 700);
@@ -157,6 +159,8 @@ const drawBack = () => {
   contextBack.value.fillText(state.birthSurname, 490, 176);
 
   contextBack.value.fillText(state.birthPlace, 490, 230);
+
+  contextBack.value.fillText(state.specialEntries, 490, 283);
 
   contextBack.value.font = "400 44px OCR B";
   contextBack.value.letterSpacing = "6px";
@@ -190,11 +194,21 @@ onMounted(() => {
   canvasFront.value = document.getElementById('canvasFront') as HTMLCanvasElement;
   contextFront.value = canvasFront.value.getContext('2d') as CanvasRenderingContext2D;
   imageFront.value = new Image();
+
+  imageFront.value.addEventListener('load', () => {
+    imageFrontLoaded.value = true;
+  });
+
   imageFront.value.src = idFront;
 
   canvasBack.value = document.getElementById('canvasBack') as HTMLCanvasElement;
   contextBack.value = canvasBack.value.getContext('2d') as CanvasRenderingContext2D;
   imageBack.value = new Image();
+
+  imageBack.value.addEventListener('load', () => {
+    imageBackLoaded.value = true;
+  });
+
   imageBack.value.src = idBack;
 });
 </script>

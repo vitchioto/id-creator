@@ -16,22 +16,24 @@ type State = {
   addressLine2: string;
   birthSurname: string;
   birthPlace: string;
+  specialEntries: string;
 };
 
 export const state: State = reactive({
   canvas: undefined,
   surname: '',
   name: '',
-  issuer: '',
+  issuer: 'Bratislava',
   birthDate: '',
-  nationality: '',
+  nationality: 'SVK',
   idNumber: '',
   sex: '',
   birthNumber: '',
   issueDate: '',
   expirationDate: '',
-  addressLine1: '',
-  addressLine2: '',
+  addressLine1: 'Bratislava',
+  addressLine2: 'Tomášikova 48',
   birthSurname: '',
-  birthPlace: '',
+  birthPlace: 'Bratislava',
+  specialEntries: ''
 })

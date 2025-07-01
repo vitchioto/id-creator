@@ -1,5 +1,19 @@
 <template>
   <form class="py-4">
+    <div class="label">Pohlavie</div>
+    <div class="control">
+      <label class="radio mr-2">
+        <input type="radio" name="answer" value="M" v-model="state.sex" />
+        Muž
+      </label>
+      <label class="radio">
+        <input type="radio" name="answer" value="F" v-model="state.sex" />
+        Žena
+      </label>
+    </div>
+    <div class="span-2">
+      Buttons
+    </div>
     <label class="label" for="name">
       Meno
     </label>
@@ -28,17 +42,6 @@
       Vydal
     </label>
     <input id="issuer" class="input" placeholder="Bratislava" v-model="state.issuer">
-    <div class="label">Pohlavie</div>
-    <div class="control">
-      <label class="radio mr-2">
-        <input type="radio" name="answer" value="M" v-model="state.sex" />
-        Muž
-      </label>
-      <label class="radio">
-        <input type="radio" name="answer" value="F" v-model="state.sex" />
-        Žena
-      </label>
-    </div>
     <label class="label" for="birthNumber">
       Rodné číslo
     </label>
@@ -63,12 +66,17 @@
       Rodné mesto
     </label>
     <input id="birthPlace" class="input" placeholder="Bratislava" v-model="state.birthPlace">
+    <label class="label" for="specialEntries">
+      Osobitné záznamy
+    </label>
+    <input id="specialEntries" class="input" placeholder="" v-model="state.specialEntries">
   </form>
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { state } from '../store.ts';
+import { DEFAULT_MALE_NAME, DEFAULT_MALE_SURNAME, DEFAULT_FEMALE_NAME, DEFAULT_FEMALE_SURNAME, formatDate } from '../utility.ts';
 
 watch(
   () => state.surname,
@@ -76,6 +84,30 @@ watch(
   if (!state.birthSurname || state.birthSurname === prevValue) {
     state.birthSurname = newValue;
   }
+});
+
+watch(
+  () => state.sex,
+  (newValue) => {
+    if (newValue === 'M'  && (!state.name || state.name === DEFAULT_FEMALE_NAME)) {
+      state.name = DEFAULT_MALE_NAME;
+    } else if (newValue === 'F'  && (!state.name || state.name === DEFAULT_MALE_NAME)) {
+      state.name = DEFAULT_FEMALE_NAME;
+    }
+    
+    if (newValue === 'M'  && (!state.surname || state.surname === DEFAULT_FEMALE_SURNAME)) {
+      state.surname = DEFAULT_MALE_SURNAME;
+    } else if (newValue === 'F'  && (!state.surname || state.surname === DEFAULT_MALE_SURNAME)) {
+      state.surname = DEFAULT_FEMALE_SURNAME;
+    }
+});
+
+onMounted(() => {
+  const date = new Date();
+  state.issueDate = formatDate(date);
+
+  date.setFullYear(date.getFullYear() + 10);
+  state.expirationDate = formatDate(date);
 });
 </script>
 
@@ -89,6 +121,10 @@ form {
 
 .label {
   margin-bottom: 0 !important;
+}
+
+.span-2 {
+  grid-column: span 2;
 }
 
 @media screen and (min-width: 768px) {
