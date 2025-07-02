@@ -8,7 +8,8 @@
         <span class="file-label"> Nahraj obrázok </span>
       </span>
     </label>
-    <button class="button ml-2" aria-label="Zmazať obrázok" @click="clearImage()">Zmazať obrázok</button>
+    <button class="button ml-2" :disabled="!image" aria-label="Upraviť obrázok" @click="showModal = true">Upraviť obrázok</button>
+    <button class="button ml-2" :disabled="!image" aria-label="Zmazať obrázok" @click="clearImage()">Zmazať obrázok</button>
   </div>
   <Canvas />
   <ImageCrop :show="showModal" :image="image" @close="showModal = false" />

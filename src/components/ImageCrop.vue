@@ -35,6 +35,7 @@ const change = ({ canvas } : { canvas: HTMLCanvasElement }) => {
 }
 
 const confirm = () => {
+  state.canvas = undefined;
   state.canvas = canvasRef.value;
   emit('close');
 }
