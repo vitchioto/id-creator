@@ -5,7 +5,7 @@
       <cropper
 		    :src="image"
         :stencil-props="{
-          aspectRatio: 0.89,
+          aspectRatio,
         }"
 		    @change="change"
 	    />
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
 import { state } from '../store.ts';
@@ -25,6 +25,10 @@ const props = defineProps(['show', 'image']);
 const emit = defineEmits(['close']);
 
 const canvasRef = ref();
+
+const aspectRatio = computed(() => {
+  state.design == 2024 ? 0.89 : 0.79;
+});
 
 const change = ({ canvas } : { canvas: HTMLCanvasElement }) => {
   canvasRef.value = canvas;

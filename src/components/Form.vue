@@ -1,15 +1,32 @@
 <template>
   <form class="py-4">
-    <div class="label">Pohlavie</div>
-    <div class="control">
-      <label class="radio mr-2">
-        <input type="radio" name="answer" value="M" v-model="state.sex" />
-        Muž
-      </label>
-      <label class="radio">
-        <input type="radio" name="answer" value="F" v-model="state.sex" />
-        Žena
-      </label>
+    <div class="radio-buttons">
+      <div class="custom-column">
+        <div class="label">Pohlavie</div>
+        <div class="control">
+          <label class="radio mr-2">
+            <input type="radio" name="sex" value="M" v-model="state.sex" />
+            Muž
+          </label>
+          <label class="radio">
+            <input type="radio" name="sex" value="F" v-model="state.sex" />
+            Žena
+          </label>
+        </div>
+      </div>
+      <div class="custom-column">
+        <div class="label">Dizajn</div>
+        <div class="control">
+          <label class="radio mr-2">
+            <input type="radio" name="design" value="2022" v-model="state.design" />
+            2022
+          </label>
+          <label class="radio">
+            <input type="radio" name="design" value="2024" v-model="state.design" />
+            2024
+          </label>
+        </div>
+      </div>
     </div>
     <div class="generation-section">
       <label class="label" for="age">
@@ -171,6 +188,18 @@ form {
   display: flex;
   gap: 10px;
   grid-column: span 2;
+}
+
+.radio-buttons {
+  display: flex;
+  gap: 40px;
+  grid-column: span 2;
+}
+
+.custom-column {
+  align-items: center;
+  display: flex;
+  gap: 10px;
 }
 
 @media screen and (min-width: 768px) {

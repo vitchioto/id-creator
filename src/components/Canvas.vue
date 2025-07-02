@@ -11,8 +11,10 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
-import idFront from '../assets/id_front.jpg';
-import idBack from '../assets/id_back.jpg';
+import idFront2022 from '../assets/id_2022_front.jpg';
+import idBack2022 from '../assets/id_2022_back.jpg';
+import idFront2024 from '../assets/id_2024_front.jpg';
+import idBack2024 from '../assets/id_2024_back.jpg';
 import { state } from '../store.ts';
 
 let canvasFront = ref();
@@ -24,9 +26,26 @@ let contextBack = ref<CanvasRenderingContext2D>();
 let imageBack = ref();
 let imageBackLoaded = ref(false);
 
+watch(() => state.design,
+(newValue) => {
+  if (newValue == 2022) {
+    imageFront.value.src = idFront2022;
+    imageBack.value.src = idBack2022;
+  } else {
+    imageFront.value.src = idFront2024;
+    imageBack.value.src = idBack2024;
+  }
+}
+)
+
 watch(state, () => {
-  drawFront();
-  drawBack();
+  if (state.design == 2022) {
+    drawFront2022();
+    drawBack2022();
+  } else {
+    drawFront2024();
+    drawBack2024();
+  }
 });
 
 const mrzLastCheckDigit = computed(() => {
@@ -96,7 +115,7 @@ const downloadBack = () => {
   createEl.remove();
 };
 
-const drawFront = () => {
+const drawFront2024 = () => {
   if (!contextFront.value || !imageFrontLoaded.value) return;
 
   contextFront.value.clearRect(0, 0, 1080, 700);
@@ -130,7 +149,7 @@ const drawFront = () => {
   contextFront.value.fillText(state.expirationDate, 766, 510);
 }
 
-const drawBack = () => {
+const drawBack2024 = () => {
   if (!contextBack.value || !imageBackLoaded.value) return;
 
   contextBack.value.clearRect(0, 0, 1080, 700);
@@ -171,6 +190,67 @@ const drawBack = () => {
   contextBack.value.fillText(mrzLine3.value, 60, 620);
 }
 
+const drawFront2022 = () => {
+  if (!contextFront.value || !imageFrontLoaded.value) return;
+
+  contextFront.value.clearRect(0, 0, 1080, 700);
+  contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 1080, 700);
+  
+  if (state.canvas) {
+    contextFront.value.filter = 'grayscale(1)';
+    contextFront.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 29, 116, 305, 385);
+    contextFront.value.filter = 'none';
+  }
+
+  contextFront.value.font = "400 32px sans-serif";
+  contextFront.value.fillText(state.idNumber, 505, 190);
+
+  contextFront.value.fillText(state.surname, 356, 250);
+
+  contextFront.value.fillText(state.name, 356, 315);
+
+  contextFront.value.fillText(state.nationality, 356, 380);
+
+  contextFront.value.fillText(state.birthDate, 356, 445);
+
+  contextFront.value.fillText(state.issuer, 356, 505);
+
+  contextFront.value.fillText(state.sex, 764, 373);
+
+  contextFront.value.fillText(state.issueDate, 764, 440);
+
+  contextFront.value.fillText(state.expirationDate, 764, 505);
+
+  contextFront.value.fillText(state.birthNumber, 764, 565);
+}
+
+const drawBack2022 = () => {
+  if (!contextBack.value || !imageBackLoaded.value) return;
+
+  contextBack.value.clearRect(0, 0, 1080, 700);
+  contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 1080, 700);
+
+  contextBack.value.font = "400 24px sans-serif";
+  contextBack.value.letterSpacing = "0px";
+
+  contextBack.value.fillText(state.addressLine1, 480, 78);
+  contextBack.value.fillText(state.addressLine2, 480, 106);
+
+  contextBack.value.fillText(state.birthSurname, 480, 166);
+
+  contextBack.value.fillText(state.birthPlace, 480, 222);
+
+  contextBack.value.fillText(state.specialEntries, 480, 279);
+
+  contextBack.value.font = "400 44px OCR B";
+  contextBack.value.letterSpacing = "6px";
+  contextBack.value.fillText(mrzLine1.value, 60, 515);
+
+  contextBack.value.fillText(mrzLine2.value, 60, 570);
+
+  contextBack.value.fillText(mrzLine3.value, 60, 625);
+}
+
 const calculateControlNumber = (value: string) : number => {
   const pattern = [7, 3, 1];
 
@@ -197,9 +277,14 @@ onMounted(() => {
 
   imageFront.value.addEventListener('load', () => {
     imageFrontLoaded.value = true;
+    if (state.design == 2022) {
+    drawFront2022();
+  } else {
+    drawFront2024();
+  }
   });
 
-  imageFront.value.src = idFront;
+  imageFront.value.src = idFront2024;
 
   canvasBack.value = document.getElementById('canvasBack') as HTMLCanvasElement;
   contextBack.value = canvasBack.value.getContext('2d') as CanvasRenderingContext2D;
@@ -207,9 +292,14 @@ onMounted(() => {
 
   imageBack.value.addEventListener('load', () => {
     imageBackLoaded.value = true;
+    if (state.design == 2022) {
+    drawBack2022();
+  } else {
+    drawBack2024();
+  }
   });
 
-  imageBack.value.src = idBack;
+  imageBack.value.src = idBack2024;
 });
 </script>
 

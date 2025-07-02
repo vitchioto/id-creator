@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 
 type State = {
+  design: 2022|2024;
   canvas?: HTMLCanvasElement,
   surname: string;
   name: string;
@@ -20,6 +21,7 @@ type State = {
 };
 
 export const state: State = reactive({
+  design: 2024,
   canvas: undefined,
   surname: '',
   name: '',
