@@ -11,11 +11,11 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
-import idFront2022 from '../assets/id_2022_front.jpg';
-import idBack2022 from '../assets/id_2022_back.jpg';
-import idFront2024 from '../assets/id_2024_front.jpg';
-import idBack2024 from '../assets/id_2024_back.jpg';
-import { state } from '../store.ts';
+import idFront2022 from '../../assets/id_2022_front.jpg';
+import idBack2022 from '../../assets/id_2022_back.jpg';
+import idFront2024 from '../../assets/id_2024_front.jpg';
+import idBack2024 from '../../assets/id_2024_back.jpg';
+import { state } from '../../store.ts';
 
 let canvasFront = ref();
 let contextFront = ref<CanvasRenderingContext2D>();

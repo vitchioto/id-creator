@@ -19,9 +19,9 @@
 import { ref } from 'vue';
 import { state } from '../store.ts';
 
-import Form from '../components/Form.vue';
-import Canvas from '../components/Canvas.vue';
-import ImageCrop from '../components/ImageCrop.vue';
+import Form from '../components/idGenerator/Form.vue';
+import Canvas from '../components/idGenerator/Canvas.vue';
+import ImageCrop from '../components/idGenerator/ImageCrop.vue';
 
 const image = ref();
 const showModal = ref(false);

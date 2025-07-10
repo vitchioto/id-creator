@@ -58,6 +58,45 @@ export const generateBirthNumber = (date: Date, sex: string) => {
   return result;
 };
 
+export const generateBirthDetails = (sex: string, age?: number) => {
+  let startDate, endDate;
+
+  if (age) {
+    const start = new Date();
+    const startDay = start.getDate();
+    const startMonth = start.getMonth() + 1;
+    const startYear = start.getFullYear();
+
+    const end = new Date();
+    end.setDate(end.getDate() - 1);
+    const endDay = end.getDate();
+    const endMonth = end.getMonth() + 1;
+    const endYear = end.getFullYear();
+
+    const startYearCalculated = startYear - age - 1;
+    const endYearCalculated = endYear - age;
+
+    startDate = new Date(`${startYearCalculated}-${startMonth}-${startDay}`);
+    endDate = new Date(`${endYearCalculated}-${endMonth}-${endDay}`);
+  } else {
+    startDate = new Date('1970-12-31');
+    endDate = new Date('1999-12-31');
+  }
+
+  const randomBirthDate = generateRandomDate(startDate, endDate);
+
+  const birthDate = formatDate(randomBirthDate);
+  const year = randomBirthDate.getFullYear();
+
+  const birthNumber = generateBirthNumber(randomBirthDate, sex);
+
+  return {
+    birthDate,
+    birthNumber,
+    year,
+  };
+}
+
 export const generateIDNumber = () => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const c1 = characters.charAt(Math.floor(Math.random() * characters.length));

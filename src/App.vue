@@ -1,9 +1,14 @@
 <template>
-  <Configuration />
+  <nav>
+    <RouterLink to="/">Generuj občiansky</RouterLink>
+    <RouterLink to="/birth-certificate">Generuj rodný list</RouterLink>
+  </nav>
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <script setup lang="ts">
-import Configuration from './pages/Configuration.vue';
 </script>
 
 <style scoped>

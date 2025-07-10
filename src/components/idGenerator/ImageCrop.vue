@@ -19,7 +19,7 @@
 import { computed, ref } from 'vue';
 import { Cropper } from 'vue-advanced-cropper';
 import 'vue-advanced-cropper/dist/style.css';
-import { state } from '../store.ts';
+import { state } from '../../store.ts';
 
 const props = defineProps(['show', 'image']);
 const emit = defineEmits(['close']);
