@@ -93,10 +93,10 @@ const mrzLine3 = computed(() => {
 
 const downloadFront = () => {
   const createEl = document.createElement('a');
-  createEl.href = canvasFront.value?.toDataURL();
+  createEl.href = canvasFront.value?.toDataURL('image/jpeg');
 
   // This is the name of our downloaded file
-  createEl.download = "id_front";
+  createEl.download = "id_front.jpg";
 
   // Click the download button, causing a download, and then remove it
   createEl.click();
@@ -105,10 +105,10 @@ const downloadFront = () => {
 
 const downloadBack = () => {
   const createEl = document.createElement('a');
-  createEl.href = canvasBack.value?.toDataURL();
+  createEl.href = canvasBack.value?.toDataURL('image/jpeg');
 
   // This is the name of our downloaded file
-  createEl.download = "id_back";
+  createEl.download = "id_back.jpg";
 
   // Click the download button, causing a download, and then remove it
   createEl.click();

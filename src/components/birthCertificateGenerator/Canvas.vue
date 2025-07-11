@@ -24,10 +24,10 @@ watch(state, () => {
 
 const download = () => {
   const createEl = document.createElement('a');
-  createEl.href = canvas.value?.toDataURL();
+  createEl.href = canvas.value?.toDataURL('image/jpeg');
 
   // This is the name of our downloaded file
-  createEl.download = "birth_certificate";
+  createEl.download = "birth_certificate.jpg";
 
   // Click the download button, causing a download, and then remove it
   createEl.click();
