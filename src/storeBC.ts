@@ -8,7 +8,9 @@ type State = {
   name: string;
   surname: string;
   sex: string;
+  fatherBirthNumber?: string;
   fatherDetails: string;
+  motherBirthNumber?: string;
   motherDetails: string;
   nameOfAdministrator: string;
 };
@@ -20,13 +22,11 @@ export const state: State = reactive({
   sex: 'M',
   fatherDetails: `Jozef Mrkvička
 rod. Mrkvička
-01. január 1960
 Bratislava, Slovenská republika
 neuvedené`,
   motherDetails: `Jozefína Mrkvičková
-rod. Mrkvička
-01. január 1962
+rod. Mrkvičková
 Bratislava, Slovenská republika
 neuvedené`,
-  nameOfAdministrator: 'Ján Novák',
+  nameOfAdministrator: 'Mgr. Adriana Zamrijová',
 })

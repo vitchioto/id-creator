@@ -110,3 +110,36 @@ export const generateIDNumber = () => {
 
   return `${c1}${c2}${c3}${c4}${c5}${c6}${c7}${c8}`;
 };
+
+const months = {
+  '01': 'január',
+  '02': 'február',
+  '03': 'marec',
+  '04': 'apríl',
+  '05': 'máj',
+  '06': 'jún',
+  '07': 'júl',
+  '08': 'august',
+  '09': 'september',
+  '10': 'október',
+  '11': 'november',
+  '12': 'december',
+};
+
+type Month = '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09' | '10' | '11' | '12';
+
+const addTrailingZero = (value: number) => {
+  return value < 10 ? `0${value}` : `${value}`;
+};
+
+export const formatDateFromBirthNumber = (birthNumber: string) => {
+  const dateParts = birthNumber.split('/');
+
+  const day = dateParts[0].substring(4);
+  const monthDigits = dateParts[0].substring(2, 4);
+  const yearDigits = dateParts[0].substring(0, 2);
+  const year = parseInt(yearDigits) < 30 ? `20${yearDigits}` : `19${yearDigits}`;
+  let month = addTrailingZero(parseInt(monthDigits) % 50) as Month;
+
+  return `${day}. ${months[month]} ${year}`;
+};

@@ -1,5 +1,5 @@
 <template>
-  <h1>Konfigurácia</h1>
+  <h1 class="title">Generuj rodný list</h1>
   <Form />
   <Canvas />
 </template>

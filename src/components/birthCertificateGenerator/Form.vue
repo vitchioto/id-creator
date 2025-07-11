@@ -18,7 +18,7 @@
       Vek
     </label>
     <input id="age" class="input" placeholder="" v-model="age">
-    <button class="button" :disabled="!state.sex" @click.prevent="setBirthDetails()">Generovať rodné detaily</button>
+    <button class="button" :disabled="!state.sex" @click.prevent="setBirthDetails()">Generovať</button>
     </div>
     <label class="label" for="name">
       Meno
@@ -29,7 +29,7 @@
     </label>
     <input id="surname" class="input" placeholder="Mrkvička" v-model="state.surname">
     <label class="label" for="year">
-      Ročník
+      Ročník narodenia
     </label>
     <input id="year" class="input" placeholder="2000" v-model="state.year">
     <label class="label" for="birthDate">
@@ -47,13 +47,21 @@
     <label class="label" for="fatherDetails">
       Údaje otca
     </label>
-    <textarea id="fatherDetails" class="textarea" rows="5" placeholder="Jozef Mrkvička" v-model="state.fatherDetails"></textarea>
+    <textarea id="fatherDetails" class="textarea" rows="4" placeholder="Jozef Mrkvička" v-model="state.fatherDetails"></textarea>
     <label class="label" for="motherDetails">
       Údaje matky
     </label>
-    <textarea id="motherDetails" class="textarea" rows="5" placeholder="Jozefína Mrkvičková" v-model="state.motherDetails"></textarea>
+    <textarea id="motherDetails" class="textarea" rows="4" placeholder="Jozefína Mrkvičková" v-model="state.motherDetails"></textarea>
+    <label class="label" for="fatherBirthNumber">
+      RČ otca
+    </label>
+    <input id="fatherBirthNumber" class="input" placeholder="111111/1111" v-model="state.fatherBirthNumber">
+    <label class="label" for="motherBirthNumber">
+      RČ matky
+    </label>
+    <input id="motherBirthNumber" class="input" placeholder="111111/1111" v-model="state.motherBirthNumber">
     <label class="label" for="nameOfAdministrator">
-      Meno a priezvisko matrikára
+      Matrikár
     </label>
     <input id="nameOfAdministrator" class="input" placeholder="Ján Novák" v-model="state.nameOfAdministrator">
   </form>

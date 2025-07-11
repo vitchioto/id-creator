@@ -1,5 +1,5 @@
 <template>
-  <h1>Konfigurácia</h1>
+  <h1 class="title">Generuj občiansky preukaz</h1>
   <Form />
   <div class="file">
     <label class="file-label">

@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import birthCertificateImage from '../../assets/birth_certificate.jpg';
+import { formatDateFromBirthNumber } from '../../utility.ts';
 import { state } from '../../storeBC.ts';
 
 let canvas = ref();
@@ -26,7 +27,7 @@ const download = () => {
   createEl.href = canvas.value?.toDataURL();
 
   // This is the name of our downloaded file
-  createEl.download = "id_front";
+  createEl.download = "birth_certificate";
 
   // Click the download button, causing a download, and then remove it
   createEl.click();
@@ -39,39 +40,55 @@ const draw = () => {
   context.value.clearRect(0, 0, 763, 1080);
   context.value.drawImage(image.value, 0,0, 763, 1080, 0,0, 763, 1080);
 
-  context.value.font = "400 14px sans-serif";
+  context.value.font = "400 12px sans-serif";
   if (state.year) {
-    context.value.fillText(state.year.toString(), 277, 251);
+    context.value.fillText(state.year.toString(), 245, 231);
   }
 
   if (state.birthDate) {
-    context.value.fillText(state.birthDate, 242, 293);
+    context.value.fillText(state.birthDate, 225, 273);
   }
 
   if (state.birthNumber) {
-    context.value.fillText(state.birthNumber, 608, 333);
+    context.value.fillText(state.birthNumber, 557, 306);
   }
 
-  context.value.fillText(state.birthCity, 242, 372);
-  context.value.fillText(state.name, 242, 422);
-  context.value.fillText(state.surname, 242, 437);
+  context.value.fillText(state.birthCity, 225, 330);
+  context.value.fillText(state.name, 225, 380);
+  context.value.fillText(state.surname, 225, 398);
 
   const sexString = state.sex === 'M' ? 'mužské' : 'ženské';
-  context.value.fillText(sexString, 242, 475);
-
-  const step = 14;
+  context.value.fillText(sexString, 225, 430);
 
   const lines = state.fatherDetails.split('\n');
-  lines.forEach((item, index) => {
-    context.value?.fillText(item, 242, 512 + (step * index));
-  });
+
+  context.value.fillText(lines[0], 225, 470);
+  context.value.fillText(lines[1], 225, 484);
+  if (state.fatherBirthNumber) {
+    context.value.fillText(formatDateFromBirthNumber(state.fatherBirthNumber), 225, 498);
+  }
+  context.value.fillText(lines[2], 225, 512);
+  context.value.fillText(lines[3], 225, 526);
+
+  if (state.fatherBirthNumber) {
+    context.value.fillText(state.fatherBirthNumber, 557, 562);
+  }
   
   const lines2 = state.motherDetails.split('\n');
-  lines2.forEach((item, index) => {
-    context.value?.fillText(item, 242, 646 + (step * index));
-  });
 
-  context.value.fillText(state.nameOfAdministrator, 600, 980);
+  context.value.fillText(lines2[0], 225, 590);
+  context.value.fillText(lines2[1], 225, 604);
+  if (state.motherBirthNumber) {
+    context.value.fillText(formatDateFromBirthNumber(state.motherBirthNumber), 225, 618);
+  }
+  context.value.fillText(lines2[2], 225, 632);
+  context.value.fillText(lines2[3], 225, 646);
+
+  if (state.motherBirthNumber) {
+    context.value.fillText(state.motherBirthNumber, 557, 683);
+  }
+
+  context.value.fillText(state.nameOfAdministrator, 510, 880);
 }
 
 onMounted(() => {
