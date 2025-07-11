@@ -1,6 +1,6 @@
 <template>
   <div>
-  <canvas id="canvas" width="846" height="1200" />
+  <canvas id="canvas" width="763" height="1080" />
   </div>
   <div>
     <button class="button" @click="download">Stiahnuť</button>
@@ -36,8 +36,8 @@ const download = () => {
 const draw = () => {
   if (!context.value || !imageLoaded.value) return;
 
-  context.value.clearRect(0, 0, 846, 1200);
-  context.value.drawImage(image.value, 0,0, 846, 1200, 0,0, 846, 1200);
+  context.value.clearRect(0, 0, 763, 1080);
+  context.value.drawImage(image.value, 0,0, 763, 1080, 0,0, 763, 1080);
 
   context.value.font = "400 14px sans-serif";
   if (state.year) {
