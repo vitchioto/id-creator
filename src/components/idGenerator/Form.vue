@@ -18,6 +18,10 @@
         <div class="label">Dizajn</div>
         <div class="control">
           <label class="radio mr-2">
+            <input type="radio" name="design" value="2015" v-model="state.design" />
+            2015
+          </label>
+          <label class="radio mr-2">
             <input type="radio" name="design" value="2022" v-model="state.design" />
             2022
           </label>

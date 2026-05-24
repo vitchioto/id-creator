@@ -11,6 +11,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
+import idFront2015 from '../../assets/id_2015_front.jpg';
+import idBack2015 from '../../assets/id_2015_back.jpg';
 import idFront2022 from '../../assets/id_2022_front.jpg';
 import idBack2022 from '../../assets/id_2022_back.jpg';
 import idFront2024 from '../../assets/id_2024_front.jpg';
@@ -28,23 +30,37 @@ let imageBackLoaded = ref(false);
 
 watch(() => state.design,
 (newValue) => {
-  if (newValue == 2022) {
-    imageFront.value.src = idFront2022;
-    imageBack.value.src = idBack2022;
-  } else {
-    imageFront.value.src = idFront2024;
-    imageBack.value.src = idBack2024;
+  switch(newValue) {
+    case '2015':
+      console.log('vlado 2015', newValue);
+      imageFront.value.src = idFront2015;
+      imageBack.value.src = idBack2015;
+      break;
+    case '2022':
+      console.log('vlado 2022', newValue);
+      imageFront.value.src = idFront2022;
+      imageBack.value.src = idBack2022;
+      break;
+    default:
+      console.log('vlado default', newValue);
+      imageFront.value.src = idFront2024;
+      imageBack.value.src = idBack2024;
   }
-}
-)
+});
 
 watch(state, () => {
-  if (state.design == 2022) {
-    drawFront2022();
-    drawBack2022();
-  } else {
-    drawFront2024();
-    drawBack2024();
+  switch(state.design) {
+    case '2015':
+      drawFront2015();
+      drawBack2015();
+      break;
+    case '2022':
+      drawFront2022();
+      drawBack2022();
+      break;
+    default:
+      drawFront2024();
+      drawBack2024();
   }
 });
 
@@ -251,6 +267,68 @@ const drawBack2022 = () => {
   contextBack.value.fillText(mrzLine3.value, 60, 625);
 }
 
+const drawFront2015 = () => {
+  if (!contextFront.value || !imageFrontLoaded.value) return;
+
+  contextFront.value.clearRect(0, 0, 1080, 700);
+  contextFront.value.drawImage(imageFront.value, 0,0, 1080, 700, 0,0, 1080, 700);
+  
+  if (state.canvas) {
+    contextFront.value.filter = 'grayscale(1)';
+    contextFront.value.drawImage(state.canvas, 0,0, state.canvas.width, state.canvas.height, 45, 151, 311, 388);
+    contextFront.value.filter = 'none';
+  }
+
+  contextFront.value.font = "400 38px sans-serif";
+  contextFront.value.fillText(state.idNumber, 380, 415);
+
+  contextFront.value.font = "400 32px sans-serif";
+  contextFront.value.fillText(state.surname, 380, 160);
+
+  contextFront.value.fillText(state.name, 380, 223);
+
+  contextFront.value.fillText(state.nationality, 380, 287);
+
+  contextFront.value.fillText(state.birthDate, 765, 287);
+
+  contextFront.value.fillText(state.issuer, 380, 535);
+
+  contextFront.value.fillText(state.sex, 380, 347);
+
+  contextFront.value.fillText(state.issueDate, 765, 535);
+
+  contextFront.value.fillText(state.expirationDate, 765, 475);
+
+  contextFront.value.fillText(state.birthNumber, 765, 347);
+}
+
+const drawBack2015 = () => {
+  if (!contextBack.value || !imageBackLoaded.value) return;
+
+  contextBack.value.clearRect(0, 0, 1080, 700);
+  contextBack.value.drawImage(imageBack.value, 0,0, 1080, 700, 0,0, 1080, 700);
+
+  contextBack.value.font = "400 24px sans-serif";
+  contextBack.value.letterSpacing = "0px";
+
+  contextBack.value.fillText(state.addressLine1, 485, 68);
+  contextBack.value.fillText(state.addressLine2, 485, 96);
+
+  contextBack.value.fillText(state.birthSurname, 485, 156);
+
+  contextBack.value.fillText(state.birthPlace, 485, 212);
+
+  contextBack.value.fillText(state.specialEntries, 485, 269);
+
+  contextBack.value.font = "400 44px OCR B";
+  contextBack.value.letterSpacing = "6px";
+  contextBack.value.fillText(mrzLine1.value, 60, 505);
+
+  contextBack.value.fillText(mrzLine2.value, 60, 560);
+
+  contextBack.value.fillText(mrzLine3.value, 60, 615);
+}
+
 const calculateControlNumber = (value: string) : number => {
   const pattern = [7, 3, 1];
 
@@ -277,11 +355,17 @@ onMounted(() => {
 
   imageFront.value.addEventListener('load', () => {
     imageFrontLoaded.value = true;
-    if (state.design == 2022) {
-    drawFront2022();
-  } else {
-    drawFront2024();
-  }
+
+    switch(state.design) {
+      case '2015':
+        drawFront2015();
+        break;
+      case '2022':
+        drawFront2022();
+        break;
+      default:
+        drawFront2024();
+    }
   });
 
   imageFront.value.src = idFront2024;
@@ -292,11 +376,16 @@ onMounted(() => {
 
   imageBack.value.addEventListener('load', () => {
     imageBackLoaded.value = true;
-    if (state.design == 2022) {
-    drawBack2022();
-  } else {
-    drawBack2024();
-  }
+    switch(state.design) {
+      case '2015':
+        drawBack2015();
+        break;
+      case '2022':
+        drawBack2022();
+        break;
+      default:
+        drawBack2024();
+    }
   });
 
   imageBack.value.src = idBack2024;
