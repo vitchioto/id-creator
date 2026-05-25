@@ -260,11 +260,11 @@ const drawBack2022 = () => {
 
   contextBack.value.font = "400 44px OCR B";
   contextBack.value.letterSpacing = "6px";
-  contextBack.value.fillText(mrzLine1.value, 60, 515);
+  contextBack.value.fillText(mrzLine1.value, 67, 535);
 
-  contextBack.value.fillText(mrzLine2.value, 60, 570);
+  contextBack.value.fillText(mrzLine2.value, 67, 590);
 
-  contextBack.value.fillText(mrzLine3.value, 60, 625);
+  contextBack.value.fillText(mrzLine3.value, 67, 645);
 }
 
 const drawFront2015 = () => {
